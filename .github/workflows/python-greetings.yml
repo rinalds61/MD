@@ -40,7 +40,7 @@ jobs:
           run: echo deploy-to-dev has started
         - uses: actions/checkout@v4
           with:
-            repository: 'mtararujs/python-greetings'
+            repository: 'rinalds61/python-greetings'
             path: 'py-gre'
         - name: install pm2
           run: npm install pm2 -g
@@ -63,7 +63,7 @@ jobs:
           run: echo tests-on-dev has started
         - uses: actions/checkout@v4
           with:
-            repository: 'mtararujs/python-greetings'
+            repository: 'rinalds61/python-greetings'
             path: 'py-gre'
         - name: install pm2
           run: npm install pm2 -g
