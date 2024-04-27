@@ -1,97 +1,133 @@
+
 name: python-greetings
 
 on:
-    push:
-        branches: [ "main" ]
-    pull_request:
-        branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs: 
-    install-pip-deps:
-      name: Install pip deps
-      runs-on: self-hosted
+  install-pip-deps:
+    name: Install pip deps
+    runs-on: ubuntu-latest
 
-      steps:
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Message about starting
+        run: echo Pip and deps installing has started
+      - uses: actions/checkout@v4
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'py-gre'
+      - name: Install dependecies
+        working-directory: py-gre
+        run: pip install -r requirements.txt
+      - name: install pm2
+        run: npm install pm2 -g
+
+
+  deploy-to-dev:
+    name: Deploy-to-DEV
+    runs-on: ubuntu-latest
+    needs: [install-pip-deps]  
+    steps:
         - uses: actions/checkout@v4
-        #- uses: actions/checkout@v4
-        #  with:
-        #    repository: 'mtararujs/python-greetings'
-        #    path: 'py-gre'
-
         - name: Message about starting
-          run: echo Pip and deps installing has started
-
-        #- name: Install dependecies
-        #  run: pip install -r py-gre/requirements.txt
-
-
-    deploy-to-dev:
-        name: Deploy-to-DEV
-        runs-on: self-hosted
-        needs: [install-pip-deps]  
-        steps:
-            - uses: actions/checkout@v4
-            - name: Message about starting
-              run: echo deploy-to-dev has started
-
+          run: echo deploy-to-dev has started
+        - uses: actions/checkout@v4
+          with:
+            repository: 'mtararujs/python-greetings'
+            path: 'py-gre'
+        - name: Delete greetings app
+          working-directory: py-gre
+          run: pm2 delete greetings-app-dev || true
+        - name: install pm2
+          run: npm install pm2 -g
+        - name: Start app
+          working-directory: py-gre
+          run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
 
 
-    tests-on-dev:
-        name: Tests-on-DEV
-        runs-on: self-hosted
-        needs: [deploy-to-dev]  
-        steps:
-            - uses: actions/checkout@v4
-            - name: Message about starting
-              run: echo tests-on-dev has started
 
-    deploy-to-staging:
-        name: Deploy-to-staging
-        runs-on: self-hosted
-        needs: [tests-on-dev]  
-        steps:
-            - name: Message about starting
-              run: echo Deploy-to-staging has started
-
-    tests-on-staging:
-        name: Tests-on-staging
-        runs-on: self-hosted
-        needs: [deploy-to-staging]  
-        steps:      
+  tests-on-dev:
+    name: Tests-on-DEV
+    runs-on: ubuntu-latest
+    needs: [deploy-to-dev]  
+    steps:
+        - uses: actions/checkout@v4
         - name: Message about starting
-          run: echo Tests-on-staging has started
+          run: echo tests-on-dev has started
+        - uses: actions/checkout@v4
+          with: 
+            repository: 'mtararujs/course-js-api-framework'
+            path: js-api
+        - name: npm install
+          working-directory: ./js-api
+          run: npm install 
+        - name: hz
+          working-directory: ./js-api
+          run: npm i --package-lock-only
+        - name: fix npm
+          run: npm audit fix
+        - name: Upload test reports
+          uses: actions/upload-artifact@v2
+          with:
+            name: test-reports
+            path: /home/runner/work/MD3/MD3/js-api/mochawesome-report/mochawesome.html
+        - name: Testa izpilde sakusies
+          working-directory: ./js-api
+          run: sudo npm run greetings greetings_dev
 
-    deploy-to-preprod:
-        name: Deploy-to-preprod
-        runs-on: self-hosted
-        needs: [tests-on-staging]  
-        steps:      
+
+  deploy-to-staging:
+    name: Deploy-to-staging
+    runs-on: ubuntu-latest
+    needs: [tests-on-dev]  
+    steps:
         - name: Message about starting
-          run: echo Deploy-to-preprod has started
+          run: echo Deploy-to-staging has started
+
+  tests-on-staging:
+    name: Tests-on-staging
+    runs-on: ubuntu-latest
+    needs: [deploy-to-staging]  
+    steps:      
+    - name: Message about starting
+      run: echo Tests-on-staging has started
+
+  deploy-to-preprod:
+    name: Deploy-to-preprod
+    runs-on: ubuntu-latest
+    needs: [tests-on-staging]  
+    steps:      
+    - name: Message about starting
+      run: echo Deploy-to-preprod has started
 
 
-    tests-on-preprod:
-        name: Tests-on-preprod
-        runs-on: self-hosted
-        needs: [deploy-to-preprod]  
-        steps:
-            - name: Message about starting
-              run: echo Tests-on-preprod has started
+  tests-on-preprod:
+    name: Tests-on-preprod
+    runs-on: ubuntu-latest
+    needs: [deploy-to-preprod]  
+    steps:
+        - name: Message about starting
+          run: echo Tests-on-preprod has started
 
-    deploy-to-prod:
-        name: deploy-to-prod
-        runs-on: self-hosted
-        needs: [tests-on-preprod]  
-        steps:
-            - name: Message about starting
-              run: echo deploy-to-prod has started
+  deploy-to-prod:
+    name: deploy-to-prod
+    runs-on: ubuntu-latest
+    needs: [tests-on-preprod]  
+    steps:
+        - name: Message about starting
+          run: echo deploy-to-prod has started
 
-    test-on-prod:
-        name: test-on-prod
-        runs-on: self-hosted
-        needs: [deploy-to-prod]  
-        steps:
-            - name: Message about starting
-              run: echo test-on-prod has started
+  test-on-prod:
+    name: test-on-prod
+    runs-on: ubuntu-latest
+    needs: [deploy-to-prod]  
+    steps:
+        - name: Message about starting
+          run: echo test-on-prod has started
