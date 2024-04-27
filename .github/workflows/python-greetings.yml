@@ -15,16 +15,16 @@ jobs:
 
       steps:
         - uses: actions/checkout@v4
-        - uses: actions/checkout@v4
-          with:
-            repository: 'mtararujs/python-greetings'
-            path: 'py-gre'
+        #- uses: actions/checkout@v4
+        #  with:
+        #    repository: 'mtararujs/python-greetings'
+        #    path: 'py-gre'
 
         - name: Message about starting
           run: echo Pip and deps installing has started
 
-        - name: Install dependecies
-          run: pip install -r py-gre/requirements.txt
+        #- name: Install dependecies
+        #  run: pip install -r py-gre/requirements.txt
 
 
     deploy-to-dev:
