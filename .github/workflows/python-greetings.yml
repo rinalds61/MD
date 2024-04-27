@@ -42,11 +42,11 @@ jobs:
           with:
             repository: 'mtararujs/python-greetings'
             path: 'py-gre'
+        - name: install pm2
+          run: npm install pm2 -g
         - name: Delete greetings app
           working-directory: py-gre
           run: pm2 delete greetings-app-dev || true
-        - name: install pm2
-          run: npm install pm2 -g
         - name: Start app
           working-directory: py-gre
           run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
@@ -65,11 +65,11 @@ jobs:
           with:
             repository: 'mtararujs/python-greetings'
             path: 'py-gre'
+        - name: install pm2
+          run: npm install pm2 -g
         - name: Delete greetings app
           working-directory: py-gre
           run: pm2 delete greetings-app-dev || true
-        - name: install pm2
-          run: npm install pm2 -g
         - name: Start app
           working-directory: py-gre
           run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
