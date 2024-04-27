@@ -22,7 +22,6 @@ jobs:
             - name: Message about starting
               run: echo Pip and deps installing has started
 
-              
             - name: Install dependecies
               run: 
                 pip install -r py-gre/requirements.txt
