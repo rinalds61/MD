@@ -77,7 +77,7 @@ jobs:
             path: /home/runner/work/MD3/MD3/js-api/mochawesome-report/mochawesome.html
         - name: Testa izpilde sakusies
           working-directory: ./js-api
-          run: sudo npm run greetings greetings_dev
+          run: npm run greetings greetings_dev
 
 
   deploy-to-staging:
