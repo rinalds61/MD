@@ -15,6 +15,10 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+            - uses: actions/checkout@v4
+              with:
+                repository: 'mtararujs/python-greetings'
+                path: 'py-gre'
             - name: Message about starting
               run: echo Pip and deps installing has started
 
