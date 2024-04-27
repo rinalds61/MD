@@ -67,7 +67,7 @@ jobs:
             path: js-api
         - name: npm install
           working-directory: ./js-api
-          run: npm install; npm audit fix
+          run: npm install; npm audit fix --force
           
 
         - name: Upload test reports
