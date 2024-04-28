@@ -12,7 +12,7 @@ on:
 jobs: 
   install-pip-deps:
     name: Install pip deps
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
 
     steps:
@@ -26,8 +26,8 @@ jobs:
       - name: Install dependecies
         working-directory: py-gre
         run: pip install -r requirements.txt
-      - name: install pm2
-        run: npm install pm2 -g
+      # - name: install pm2
+      #   run: npm install pm2 -g
 
 
   deploy-to-dev:
@@ -49,7 +49,7 @@ jobs:
           run: pm2 delete greetings-app-dev || true
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py -- name greetings-app-dev -- port 7001
+          run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
 
 
 
@@ -72,7 +72,7 @@ jobs:
           run: pm2 delete greetings-app-dev || true
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py -- name greetings-app-dev -- port 7001
+          run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
         - uses: actions/checkout@v4
           with: 
             repository: 'mtararujs/course-js-api-framework'
