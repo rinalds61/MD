@@ -43,8 +43,8 @@ jobs:
 
         - name: Delete greetings app
           working-directory: py-gre
-          run: pm2 delete greetings-app-dev || true
-          
+          run: pm2 delete greetings-app-dev & set "errorlevel=0"
+
         - name: Start app
           working-directory: py-gre
           run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
