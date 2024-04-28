@@ -38,12 +38,12 @@ jobs:
           run: echo deploy-to-dev has started
         - uses: actions/checkout@v4
           with:
-            repository: 'mtararujs/python-greetings'
+            repository: 'rinalds61/python-greetings'
             path: 'py-gre'
 
-        # - name: Delete greetings app
-        #   working-directory: py-gre
-        #   run: pm2 delete greetings-app-dev & EXIT /B 0
+        - name: Delete greetings app
+          working-directory: py-gre
+          run: pm2 delete greetings-app-dev & EXIT /B 0
 
         - name: Start app
           working-directory: py-gre
@@ -53,7 +53,7 @@ jobs:
 
   tests-on-dev:
     name: Tests-on-DEV
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-dev]  
     steps:
         - uses: actions/checkout@v4
@@ -61,16 +61,10 @@ jobs:
           run: echo tests-on-dev has started
         - uses: actions/checkout@v4
           with:
-            repository: 'mtararujs/python-greetings'
+            repository: 'rinalds61/python-greetings'
             path: 'py-gre'
-        - name: install pm2
-          run: npm install pm2 -g
-        - name: Delete greetings app
-          working-directory: py-gre
-          run: pm2 delete greetings-app-dev || true
-        - name: Start app
-          working-directory: py-gre
-          run: pm2 start app.py -- name greetings-app-dev -- -- port 7001
+
+
         - uses: actions/checkout@v4
           with: 
             repository: 'mtararujs/course-js-api-framework'
@@ -79,12 +73,11 @@ jobs:
           working-directory: ./js-api
           run: npm install; npm audit fix --force
           
-
-        - name: Upload test reports
-          uses: actions/upload-artifact@v2
-          with:
-            name: test-reports
-            path: /home/runner/work/MD3/MD3/js-api/mochawesome-report/mochawesome.html
+        # - name: Upload test reports
+        #   uses: actions/upload-artifact@v2
+        #   with:
+        #     name: test-reports
+        #     path: /home/runner/work/MD3/MD3/js-api/mochawesome-report/mochawesome.html
         - name: Testa izpilde sakusies
           working-directory: ./js-api
           run: npm run greetings greetings_dev
