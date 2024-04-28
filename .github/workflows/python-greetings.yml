@@ -41,13 +41,13 @@ jobs:
         #     repository: 'rinalds61/python-greetings'
         #     path: 'py-gre'
 
-        # - name: Delete greetings app
-        #   working-directory: py-gre
-        #   run: pm2 delete greetings-app-dev 
+        - name: Delete greetings app
+          working-directory: py-gre
+          run: pm2 delete greetings-app-dev 
 
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev 
+          run: pm2 start app.py --name greetings-app-dev -- --port 7001
 
 
 
