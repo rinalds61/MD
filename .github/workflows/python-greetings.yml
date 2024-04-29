@@ -21,7 +21,7 @@ jobs:
         run: echo Pip and deps installing has started
       - uses: actions/checkout@v4
         with:
-          repository: 'rinalds61/python-greetings'
+          repository: 'mtararujs/python-greetings'
           path: 'py-gre'
       - name: Install dependecies
         working-directory: py-gre
@@ -53,7 +53,7 @@ jobs:
         #   run: $env:PORT=7001
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev -- --port 7001
+          run: pm2 start app.py --name greetings-app-dev --interpreter none -- --port 7001
           
 
 
