@@ -33,13 +33,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: [install-pip-deps]  
     steps:
-        # - uses: actions/checkout@v4
-        # - name: Message about starting
-        #   run: echo deploy-to-dev has started
-        # - uses: actions/checkout@v4
-        #   with:
-        #     repository: 'rinalds61/python-greetings'
-        #     path: 'py-gre'
+        - uses: actions/checkout@v4
+        - name: Message about starting
+          run: echo deploy-to-dev has started
+        - uses: actions/checkout@v4
+          with:
+            repository: 'rinalds61/python-greetings'
+            path: 'py-gre'
 
         # - name: Delete greetings app
         #   working-directory: py-gre
@@ -64,13 +64,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-to-dev]  
     steps:
-        # - uses: actions/checkout@v4
-        # - name: Message about starting
-        #   run: echo tests-on-dev has started
-        # - uses: actions/checkout@v4
-        #   with:
-        #     repository: 'rinalds61/python-greetings'
-        #     path: 'py-gre'
+        - uses: actions/checkout@v4
+        - name: Message about starting
+          run: echo tests-on-dev has started
+        - uses: actions/checkout@v4
+          with:
+            repository: 'rinalds61/python-greetings'
+            path: 'py-gre'
         - uses: actions/checkout@v4
           with: 
             repository: 'mtararujs/course-js-api-framework'
