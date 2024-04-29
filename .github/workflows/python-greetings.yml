@@ -52,6 +52,7 @@ jobs:
           working-directory: py-gre
           run: $env:PORT=7001
         - name: ahha
+          working-directory: py-gre
           run: pm2 start app.py --name greetings-app-dev
           
 
