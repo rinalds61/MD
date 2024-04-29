@@ -12,7 +12,7 @@ on:
 jobs: 
   install-pip-deps:
     name: Install pip deps
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
 
     steps:
@@ -21,7 +21,7 @@ jobs:
         run: echo Pip and deps installing has started
       - uses: actions/checkout@v4
         with:
-          repository: 'rinalds61/python-greetings'
+          repository: 'mtararujs/python-greetings'
           path: 'py-gre'
       - name: Install dependecies
         working-directory: py-gre
@@ -30,7 +30,7 @@ jobs:
 
   deploy-to-dev:
     name: Deploy-to-DEV
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [install-pip-deps]  
     steps:
         # - uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
         #   run: $env:PORT=7001
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev
+          run: pm2 start app.py --name greetings-app-dev -- 7001
           
 
 
@@ -61,7 +61,7 @@ jobs:
 
   tests-on-dev:
     name: Tests-on-DEV
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: [deploy-to-dev]  
     steps:
         # - uses: actions/checkout@v4
@@ -73,7 +73,7 @@ jobs:
         #     path: 'py-gre'
         - uses: actions/checkout@v4
           with: 
-            repository: 'rinalds61/course-js-api-framework'
+            repository: 'mtararujs/course-js-api-framework'
             path: js-api
         - name: npm install
           working-directory: ./js-api
