@@ -12,7 +12,7 @@ on:
 jobs: 
   install-pip-deps:
     name: Install pip deps
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
 
     steps:
@@ -30,16 +30,16 @@ jobs:
 
   deploy-to-dev:
     name: Deploy-to-DEV
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [install-pip-deps]  
     steps:
-        - uses: actions/checkout@v4
-        - name: Message about starting
-          run: echo deploy-to-dev has started
-        - uses: actions/checkout@v4
-          with:
-            repository: 'rinalds61/python-greetings'
-            path: 'py-gre'
+        # - uses: actions/checkout@v4
+        # - name: Message about starting
+        #   run: echo deploy-to-dev has started
+        # - uses: actions/checkout@v4
+        #   with:
+        #     repository: 'rinalds61/python-greetings'
+        #     path: 'py-gre'
 
         # - name: Delete greetings app
         #   working-directory: py-gre
@@ -61,16 +61,16 @@ jobs:
 
   tests-on-dev:
     name: Tests-on-DEV
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-dev]  
     steps:
-        - uses: actions/checkout@v4
-        - name: Message about starting
-          run: echo tests-on-dev has started
-        - uses: actions/checkout@v4
-          with:
-            repository: 'rinalds61/python-greetings'
-            path: 'py-gre'
+        # - uses: actions/checkout@v4
+        # - name: Message about starting
+        #   run: echo tests-on-dev has started
+        # - uses: actions/checkout@v4
+        #   with:
+        #     repository: 'rinalds61/python-greetings'
+        #     path: 'py-gre'
         - uses: actions/checkout@v4
           with: 
             repository: 'mtararujs/course-js-api-framework'
