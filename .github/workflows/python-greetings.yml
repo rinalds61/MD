@@ -38,7 +38,7 @@ jobs:
 
         - name: Start app
           working-directory: py-gre
-          run: python app.py --port 7001
+          run: pm2 start app.py --name greetings-app-dev --port 8080
 
 
 
