@@ -33,12 +33,13 @@ jobs:
     runs-on: self-hosted
     needs: [install-pip-deps]  
     steps:
-
+        - name: set port (optional)
+          run: $env:PORT = 7001
+          
         - name: Start app
           working-directory: py-gre
           run: pm2 start app.py --name greetings-app-dev --
-        - name: set port (optional)
-          run: $env:PORT = 7001
+
 
 
           
