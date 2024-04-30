@@ -1,7 +1,6 @@
 runs:
   using: "composite"
     steps:
-      - uses: actions/checkout@v4
       - name: Message about starting
         run: echo Pip and deps installing has started
         shell: bash
