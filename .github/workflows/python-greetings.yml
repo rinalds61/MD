@@ -13,23 +13,23 @@ jobs:
   install-pip-deps:
     name: Install pip deps
     runs-on: self-hosted
-    steps:
-      - uses: actions/checkout@v4
-      - name: Start installing
-        run: ./.github/actions/install-deps
-        shell: bash
-
     # steps:
     #   - uses: actions/checkout@v4
-    #   - name: Message about starting
-    #     run: echo Pip and deps installing has started
-    #   - uses: actions/checkout@v4
-    #     with:
-    #       repository: 'mtararujs/python-greetings'
-    #       path: 'py-gre'
-    #   - name: Install dependecies
-    #     working-directory: py-gre
-    #     run: pip install -r requirements.txt
+    #   - name: Start installing
+    #     run: ./.github/actions/install-deps
+    #     shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Message about starting
+        run: echo Pip and deps installing has started
+      - uses: actions/checkout@v4
+        with:
+          repository: 'mtararujs/python-greetings'
+          path: 'py-gre'
+      - name: Install dependecies
+        working-directory: py-gre
+        run: pip install -r requirements.txt
 
 
   deploy-to-dev:
@@ -57,7 +57,7 @@ jobs:
         #   run: $env:PORT=7001
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev --interpreter none -- --port 7001
+          run: pm2 start app.py --name greetings-app-dev -- --port 7001
           
 
 
