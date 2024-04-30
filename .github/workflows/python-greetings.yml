@@ -13,11 +13,7 @@ jobs:
   install-pip-deps:
     name: Install pip deps
     runs-on: self-hosted
-    # steps:
-    #   - uses: actions/checkout@v4
-    #   - name: Start installing
-    #     run: ./.github/actions/install-deps
-    #     shell: bash
+
 
     steps:
       - uses: actions/checkout@v3.5.2
@@ -25,14 +21,11 @@ jobs:
         run: echo Pip and deps installing has started
       - uses: actions/checkout@v3.5.2
         with:
-          repository: 'rinalds61/python-greetings'
+          repository: 'mtararujs/python-greetings'
           path: 'py-gre'
       - name: Install dependecies
         working-directory: py-gre
         run: pip install -r requirements.txt
-      - name: config change add PORT
-        working-directory: py-gre
-        run: pm2 start ecosystem.config.js
 
 
   deploy-to-dev:
@@ -40,29 +33,11 @@ jobs:
     runs-on: self-hosted
     needs: [install-pip-deps]  
     steps:
-        # - uses: actions/checkout@v4
-        # - name: Message about starting
-        #   run: echo deploy-to-dev has started
-        # - uses: actions/checkout@v4
-        #   with:
-        #     repository: 'rinalds61/python-greetings'
-        #     path: 'py-gre'
 
-        # - name: Delete greetings app
-        #   working-directory: py-gre
-        #   run: pm2 delete all
-
-        # - name: Set Port
-        #   run: set PORT=7001
-        # - name: Set port
-        #   working-directory: py-gre
-        #   run: $env:PORT=7003
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev --port 7001
-        # - name: Set port
-        #   working-directory: py-gre
-        #   run: $env:PORT=7003
+          run: pm2 start app.py --name greetings-app-dev -- --port 7001
+
 
 
           
@@ -71,13 +46,7 @@ jobs:
     runs-on: self-hosted
     needs: [deploy-to-dev]  
     steps:
-        # - uses: actions/checkout@v4
-        # - name: Message about starting
-        #   run: echo tests-on-dev has started
-        # - uses: actions/checkout@v4
-        #   with:
-        #     repository: 'rinalds61/python-greetings'
-        #     path: 'py-gre'
+
         - uses: actions/checkout@v4
           with: 
             repository: 'mtararujs/course-js-api-framework'
@@ -86,11 +55,7 @@ jobs:
           working-directory: ./js-api
           run: npm install; npm audit fix --force
           
-        # - name: Upload test reports
-        #   uses: actions/upload-artifact@v2
-        #   with:
-        #     name: test-reports
-        #     path: /home/runner/work/MD3/MD3/js-api/mochawesome-report/mochawesome.html
+
         - name: Testa izpilde sakusies
           working-directory: ./js-api
           run: npm run greetings greetings_dev
