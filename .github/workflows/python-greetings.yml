@@ -35,10 +35,10 @@ jobs:
     steps:
         - name: set port (optional)
           run: $env:PORT = 7001
-          
+
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev --
+          run: python app.py --port 7001
 
 
 
