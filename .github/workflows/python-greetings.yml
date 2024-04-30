@@ -51,12 +51,12 @@ jobs:
 
         # - name: Set Port
         #   run: set PORT=7001
-        - name: Set port
-          working-directory: py-gre
-          run: $env:PORT=7003
+        # - name: Set port
+        #   working-directory: py-gre
+        #   run: $env:PORT=7003
         - name: Start app
           working-directory: py-gre
-          run: pm2 start app.py --name greetings-app-dev
+          run: pm2 start app.py --name greetings-app-dev -P 7001
         # - name: Set port
         #   working-directory: py-gre
         #   run: $env:PORT=7003
