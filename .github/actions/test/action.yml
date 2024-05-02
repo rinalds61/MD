@@ -1,0 +1,21 @@
+inputs:
+  enviroment:
+    description: 'Environment'
+    default: 'dev'
+runs:
+  using: "composite"
+  steps:
+      - name: Starting Job
+        run: echo "Testing on ${{ inputs.enviroment }}"
+        shell: cmd
+
+        - name: npm install
+          working-directory: ./js-api
+          run: "npm install"
+          shell: cmd
+          
+
+        - name: Testa izpilde sakusies
+          working-directory: ./js-api
+          run: "npm run greetings greetings_${{ inputs.enviroment }}"
+          shell: cmd

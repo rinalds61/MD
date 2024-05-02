@@ -42,21 +42,10 @@ jobs:
     runs-on: self-hosted
     needs: [deploy-to-dev]  
     steps:
+      - uses: ./.github/actions/test
+        with:
+          enviroment: 'dev'
 
-        - uses: actions/checkout@v4
-          with: 
-            repository: 'mtararujs/course-js-api-framework'
-            path: js-api
-        - name: npm install
-          working-directory: ./js-api
-          run: "npm install"
-          shell: cmd
-          
-
-        - name: Testa izpilde sakusies
-          working-directory: ./js-api
-          run: "npm run greetings greetings_dev"
-          shell: cmd
 
 
   deploy-to-staging:
