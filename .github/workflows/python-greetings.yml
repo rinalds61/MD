@@ -16,7 +16,7 @@ jobs:
 
 
     steps:
-      - name: Prepare for Install
+      - name: Izdzest visus darbojosos pm2 # savādak nevar palaist actions/checkout
         run: "pm2 delete all & set \"errorlevel=0\""
         shell: cmd 
       - uses: actions/checkout@v3.5.2
@@ -28,13 +28,10 @@ jobs:
     runs-on: self-hosted
     needs: [install-pip-deps]  
     steps:
-        - name: Prepare for Install
-          run: "pm2 delete greetings-app-dev & set \"errorlevel=0\""
-          shell: cmd
-        - name: Start app
-          working-directory: py-gre
-          run: "pm2 start app.py --name greetings-app-dev -- --port=7001"
-          shell: cmd
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7001
+          enviroment: 'greetings-app-dev'
 
 
 
