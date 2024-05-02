@@ -3,12 +3,10 @@ runs:
   steps:
     - name: Message about starting
       run: echo Pip and deps installing has started
-      shell: bash
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3.5.2
       with:
-        repository: 'mtararujs/python-greetings'
+        repository: 'rinalds61/python-greetings'
         path: 'py-gre'
     - name: Install dependecies
       working-directory: py-gre
       run: pip install -r requirements.txt
-      shell: bash
