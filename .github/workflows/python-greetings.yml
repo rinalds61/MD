@@ -33,10 +33,7 @@ jobs:
           port: 7001
           enviroment: 'greetings-app-dev'
 
-
-
-
-          
+       
   tests-on-dev:
     name: Tests-on-DEV
     runs-on: self-hosted
