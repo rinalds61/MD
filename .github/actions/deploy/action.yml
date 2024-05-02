@@ -9,12 +9,12 @@ runs:
   using: "composite"
   steps:
     - name: Build success
-      run: echo "Build of ${{inputs.enviroment}} application is starting"
+      run: echo "Build of greetings-app-${{inputs.enviroment}} application is starting"
       shell: cmd
     - name: Prepare for Install
-      run: "pm2 delete ${{inputs.enviroment}} & set \"errorlevel=0\""
+      run: "pm2 delete greetings-app-${{inputs.enviroment}} & set \"errorlevel=0\""
       shell: cmd
     - name: Start app
       working-directory: py-gre
-      run: "pm2 start app.py --name ${{inputs.enviroment}} -- --port=${{inputs.port}}"
+      run: "pm2 start app.py --name greetings-app-${{inputs.enviroment}} -- --port=${{inputs.port}}"
       shell: cmd
