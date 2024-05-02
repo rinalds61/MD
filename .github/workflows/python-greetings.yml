@@ -16,6 +16,9 @@ jobs:
 
 
     steps:
+      - name: Prepare for Install
+        run: "pm2 delete all & set \"errorlevel=0\""
+        shell: cmd 
       - uses: actions/checkout@v3.5.2
       - uses: ./.github/actions/install-deps
 
