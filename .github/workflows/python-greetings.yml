@@ -58,11 +58,13 @@ jobs:
         - name: npm install
           working-directory: ./js-api
           run: npm install; npm audit fix --force
+          # shell: cmd
           
 
         - name: Testa izpilde sakusies
           working-directory: ./js-api
-          run: npm run greetings greetings_dev
+          run: "npm run greetings greetings_dev"
+          shell: cmd
 
 
   deploy-to-staging:
