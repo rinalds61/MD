@@ -33,13 +33,15 @@ jobs:
     runs-on: self-hosted
     needs: [install-pip-deps]  
     steps:
-        # - name: delete
-        #   run: pm2 delete all
+        - name: delete
+          run: pm2 delete all
 
         - name: Start app
           working-directory: py-gre
           run: pm2 start app.py -- name greetings-app-dev -- --port 7001
           shell: cmd
+        - name: save
+          run: pm2 save
 
 
 
