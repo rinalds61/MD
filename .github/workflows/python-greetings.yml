@@ -47,7 +47,7 @@ jobs:
 
   deploy-to-staging:
     name: Deploy-to-staging
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [tests-on-dev]  
     steps:
       - uses: ./.github/actions/deploy
@@ -57,7 +57,7 @@ jobs:
 
   tests-on-staging:
     name: Tests-on-staging
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-staging]  
     steps:      
       - uses: ./.github/actions/test
@@ -66,7 +66,7 @@ jobs:
 
   deploy-to-preprod:
     name: Deploy-to-preprod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [tests-on-staging]  
     steps:      
       - uses: ./.github/actions/deploy
@@ -77,7 +77,7 @@ jobs:
 
   tests-on-preprod:
     name: Tests-on-preprod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-preprod]  
     steps:
       - uses: ./.github/actions/test
@@ -86,7 +86,7 @@ jobs:
 
   deploy-to-prod:
     name: deploy-to-prod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [tests-on-preprod]  
     steps:
       - uses: ./.github/actions/deploy
@@ -96,7 +96,7 @@ jobs:
 
   test-on-prod:
     name: test-on-prod
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: [deploy-to-prod]  
     steps:
       - uses: ./.github/actions/test
