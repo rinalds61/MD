@@ -6,12 +6,9 @@ runs:
   using: "composite"
   steps:
     - name: Starting Job
-      run: echo "Testing on ${{ inputs.enviroment }}"
+      run: echo "Testing on ${{ inputs.enviroment }} has started"
       shell: cmd
-    - uses: actions/checkout@v4
-      with: 
-        repository: 'mtararujs/course-js-api-framework'
-        path: js-api
+
     - name: npm install
       working-directory: ./js-api
       run: "npm install"

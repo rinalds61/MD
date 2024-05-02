@@ -8,7 +8,10 @@ runs:
       with:
         repository: 'rinalds61/python-greetings'
         path: 'py-gre'
-
+    - uses: actions/checkout@v4
+      with: 
+        repository: 'rinalds61/course-js-api-framework'
+        path: js-api
     - name: Install dependecies
       working-directory: py-gre
       run: "pip install -r requirements.txt"

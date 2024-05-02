@@ -11,10 +11,7 @@ runs:
     - name: Build success
       run: echo "Build of greetings-app-${{inputs.enviroment}} application is starting"
       shell: cmd
-    - uses: actions/checkout@v3.5.2
-      with:
-        repository: 'rinalds61/python-greetings'
-        path: 'py-gre'
+
     - name: Prepare for Install
       run: "pm2 delete greetings-app-${{inputs.enviroment}} & set \"errorlevel=0\""
       shell: cmd
