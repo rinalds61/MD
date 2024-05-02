@@ -2,11 +2,13 @@ runs:
   using: "composite"
   steps:
     - name: Message about starting
-      run: echo Pip and deps installing has started   
+      run: echo "Pip and deps installing has started"
+      sehll: cmd   
     - uses: actions/checkout@v3.5.2
       with:
         repository: 'rinalds61/python-greetings'
         path: 'py-gre'
     - name: Install dependecies
       working-directory: py-gre
-      run: pip install -r requirements.txt
+      run: "pip install -r requirements.txt"
+      shell: cmd
