@@ -16,7 +16,7 @@ jobs:
 
 
     steps:
-      - name: Izdzest visus darbojosos pm2 # savādak nevar palaist actions/checkout
+      - name: Izdzest visus darbojosos pm2 # savādak nevar palaist actions/checkout jo ir aktivi pm kas bloke mapi
         run: "pm2 delete all & set \"errorlevel=0\""
         shell: cmd 
       - uses: actions/checkout@v3.5.2
