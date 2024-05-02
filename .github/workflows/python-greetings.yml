@@ -50,24 +50,29 @@ jobs:
     runs-on: ubuntu-latest
     needs: [tests-on-dev]  
     steps:
-        - name: Message about starting
-          run: echo Deploy-to-staging has started
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7002
+          enviroment: 'staging'
 
   tests-on-staging:
     name: Tests-on-staging
     runs-on: ubuntu-latest
     needs: [deploy-to-staging]  
     steps:      
-    - name: Message about starting
-      run: echo Tests-on-staging has started
+      - uses: ./.github/actions/test
+        with:
+          enviroment: 'staging'
 
   deploy-to-preprod:
     name: Deploy-to-preprod
     runs-on: ubuntu-latest
     needs: [tests-on-staging]  
     steps:      
-    - name: Message about starting
-      run: echo Deploy-to-preprod has started
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7003
+          enviroment: 'preprod'
 
 
   tests-on-preprod:
@@ -75,21 +80,25 @@ jobs:
     runs-on: ubuntu-latest
     needs: [deploy-to-preprod]  
     steps:
-        - name: Message about starting
-          run: echo Tests-on-preprod has started
+      - uses: ./.github/actions/test
+        with:
+          enviroment: 'preprod'
 
   deploy-to-prod:
     name: deploy-to-prod
     runs-on: ubuntu-latest
     needs: [tests-on-preprod]  
     steps:
-        - name: Message about starting
-          run: echo deploy-to-prod has started
+      - uses: ./.github/actions/deploy
+        with:
+          port: 7004
+          enviroment: 'prod'
 
   test-on-prod:
     name: test-on-prod
     runs-on: ubuntu-latest
     needs: [deploy-to-prod]  
     steps:
-        - name: Message about starting
-          run: echo test-on-prod has started
+      - uses: ./.github/actions/test
+        with:
+          enviroment: 'prod'
