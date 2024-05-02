@@ -33,8 +33,8 @@ jobs:
     runs-on: self-hosted
     needs: [install-pip-deps]  
     steps:
-        - name: delete
-          run: pm2 delete all
+        - name: Prepare for Install
+          run: "pm2 delete all & set \"errorlevel=0\""
 
         - name: Start app
           working-directory: py-gre
